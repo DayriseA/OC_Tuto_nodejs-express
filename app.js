@@ -1,4 +1,16 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+
+dotenv.config(); // Load environment variables from .env file into process.env
+
+const db_username = process.env.DB_USERNAME;
+const db_password = process.env.DB_PASSWORD;
+
+// Connect to MongoDB Atlas
+mongoose.connect(`mongodb+srv://${db_username}:${db_password}@tutorial.wklsj.mongodb.net/?retryWrites=true&w=majority&appName=tutorial`)
+  .then(() => console.log('Connexion à MongoDB réussie !'))
+  .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 const app = express();
 
