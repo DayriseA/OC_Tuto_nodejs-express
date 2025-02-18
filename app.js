@@ -2,6 +2,10 @@ const express = require('express');
 
 const app = express();
 
+// Express will take every request that has a application/json Content-Type and put their body in a req.body property
+app.use(express.json());
+
+// Tutorial project, let's keep it simple
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
@@ -9,7 +13,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api/stuff', (req, res, next) => {
+app.get('/api/stuff', (req, res, next) => {
   const stuff = [
     {
       _id: 'oeihfzeoi',
@@ -29,6 +33,14 @@ app.use('/api/stuff', (req, res, next) => {
     },
   ];
   res.status(200).json(stuff);
+});
+
+app.post('/api/stuff', (req, res, next) => {
+  // For now as we don't have a database, we will just log the request body and send a response
+  console.log(req.body);
+  res.status(201).json({
+    message: 'Object created!'
+  });
 });
 
 module.exports = app;
