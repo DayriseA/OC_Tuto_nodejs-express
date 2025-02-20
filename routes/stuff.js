@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+const auth = require('../middleware/auth');
+
 const stuffCtrl = require('../controllers/stuff');
 // const Thing = require('../models/Thing');
 
@@ -14,7 +16,7 @@ const stuffCtrl = require('../controllers/stuff');
 //     .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
 //     .catch(error => res.status(400).json({ error }));
 // });
-router.post('/', stuffCtrl.createThing);
+router.post('/', auth, stuffCtrl.createThing);
 
 
 // router.get('/', (req, res, next) => {
@@ -22,7 +24,7 @@ router.post('/', stuffCtrl.createThing);
 //     .then(things => res.status(200).json(things))
 //     .catch(error => res.status(400).json({ error }));
 // });
-router.get('/', stuffCtrl.getAllThings);
+router.get('/', auth, stuffCtrl.getAllThings);
 
 
 // router.get('/:id', (req, res, next) => {
@@ -30,7 +32,7 @@ router.get('/', stuffCtrl.getAllThings);
 //     .then(thing => res.status(200).json(thing))
 //     .catch(error => res.status(404).json({ error }));
 // });
-router.get('/:id', stuffCtrl.getOneThing);
+router.get('/:id', auth, stuffCtrl.getOneThing);
 
 
 // router.put('/:id', (req, res, next) => {
@@ -38,7 +40,7 @@ router.get('/:id', stuffCtrl.getOneThing);
 //     .then(() => res.status(200).json({ message: 'Objet modifié !'}))
 //     .catch(error => res.status(400).json({ error }));
 // });
-router.put('/:id', stuffCtrl.modifyThing);
+router.put('/:id', auth, stuffCtrl.modifyThing);
 
 
 // router.delete('/:id', (req, res, next) => {
@@ -46,6 +48,6 @@ router.put('/:id', stuffCtrl.modifyThing);
 //     .then(() => res.status(200).json({ message: 'Objet supprimé !'}))
 //     .catch(error => res.status(400).json({ error }));
 // });
-router.delete('/:id', stuffCtrl.deleteThing);
+router.delete('/:id', auth, stuffCtrl.deleteThing);
 
 module.exports = router;
