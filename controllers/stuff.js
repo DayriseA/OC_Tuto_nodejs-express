@@ -45,6 +45,12 @@ exports.modifyThing = (req, res, next) => {
       if (thing.userId != req.auth.userId) {
         res.status(403).json({ error: 'Requête non autorisée' });
       } else {
+        if (req.file) {
+          const oldFilename = thing.imageUrl.split('/images/')[1];
+          fs.unlink(`images/${oldFilename}`, (err) => {
+            if (err) console.log(err);
+          });
+        }
         Thing.updateOne({ _id: req.params.id }, { ...thingObject, _id: req.params.id })
           .then(() => res.status(200).json({ message: 'Objet modifié !'}))
           .catch(error => res.status(401).json({ error }));
